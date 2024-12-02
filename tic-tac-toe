@@ -1,0 +1,196 @@
+#include<stdio.h>
+int win_check(int board[3][3])
+{
+   int flag=2;
+
+
+
+
+        if(((board[0][0]==88 )&&(board[0][1]==88) &&( board[0][2]==88)) || ((board[0][0]==88) && (board[1][0]==88) && (board[2][0]==88))){ flag = 1; }
+        else if(((board[1][0]==88 )&&(board[1][1]==88) &&( board[1][2]==88)) || ((board[0][1]==88) && (board[1][1]==88) && (board[2][1]==88))){ flag = 1; }
+        else if(((board[2][0]==88 )&&(board[2][1]==88) &&( board[2][2]==88)) || ((board[0][2]==88) && (board[1][2]==88) && (board[2][2]==88))){ flag = 1; }
+
+
+        else if((board[0][0]==88) && (board[1][1]==88) &&(board[2][2]==88)){flag =1; }
+        else if ((board[0][2]==88)&&(board[1][1]==88)&&(board[2][0]==88)){ flag =1;}
+
+//if(flag == 1) printf ("Mishri wins Priya loses ");
+
+   if(flag!=1)
+   {
+
+        if(((board[0][0]==79) && (board[0][1]==79) && (board[0][2]==79)) || ((board[0][0]==79) &&( board[1][0]==79) && (board[2][0]==79))){flag = 0;}
+        else if(((board[1][0]==79) && (board[1][1]==79) && (board[1][2]==79)) || ((board[0][1]==79) &&( board[1][1]==79) && (board[2][1]==79))){flag = 0;}
+        else if(((board[2][0]==79) && (board[2][1]==79) && (board[2][2]==79)) || ((board[0][2]==79) &&( board[1][2]==79) && (board[2][2]==79))){flag = 0;}
+
+        else if((board[0][0]==79)&&(board[1][1]==79)&&(board[2][2]==79)){flag = 0;}
+            else if ((board[0][2]==79)&&(board[1][1]==79)&&(board[2][0]==79)){flag = 0;}
+
+
+
+   }
+   if(flag!=1 && flag != 0)
+    flag = 2;
+    return flag;
+
+
+}
+void draw_board1(int temp1,int board[3][3])
+{
+    for(int i=0;i<3;i++)
+    { for(int j=0;j<3;j++)
+    {
+        if(temp1==board[i][j]){ board[i][j]=88;
+
+        }
+    }
+    //printf("\n");
+    }
+    for (int k=0,i=0;k<5;k++)
+    {
+        for(int j=0;j<3;j++)
+        {
+             if(k==1 || k==3) printf("- ");
+
+         else if((k==0||k==2||k==4) && j!=2)
+         {
+             if(board[i][j]==88)
+                printf("X|");
+               else if(board[i][j]==79)
+                printf("O|");
+             else
+            printf("%d|",board[i][j]);
+         }
+
+          else if ((k==0||k==2||k==4)&&j==2)
+          {
+            if(board[i][j]==88)
+                printf("X");
+                 else if(board[i][j]==79)
+                printf("O");
+             else
+            printf("%d",board[i][j]);
+          }
+
+
+        }
+        printf("\n");
+        if(k==0 || k==2 || k ==4 ) i++;
+    }
+
+
+}
+void draw_board2(int temp2,int board[3][3])
+{
+    for(int k=0;k<3;k++)
+    { for(int j=0;j<3;j++)
+    {
+        if(temp2==board[k][j]){ board[k][j]=79;
+        }
+    }
+    // printf("\n");
+    }
+        for (int k=0,i=0;k<5;k++)
+    {
+        for(int j=0;j<3;j++)
+        {
+             if(k==1 || k==3) printf("- ");
+
+         else if((k==0||k==2||k==4) && j!=2)
+         {
+              if(board[i][j]==79)
+                printf("O|");
+
+           else if(board[i][j]==88)
+                printf("X|");
+             else
+            printf("%d|",board[i][j]);
+         }
+
+          else if ((k==0||k==2||k==4)&&j==2)
+          {
+
+          if(board[i][j]==79)
+                printf("O");
+           else  if(board[i][j]==88)
+                printf("X");
+             else
+            printf("%d",board[i][j]);
+          }
+
+        }
+        printf("\n");
+        if(k==0 || k==2 || k ==4 ) i++;
+    }
+}
+
+void markboard (int board[3][3]);
+
+void main()
+{
+    int board[3][3]={{1,2,3},{4,5,6},{7,8,9}};
+    int temp1,temp2;
+   //board making
+    for(int i=0;i<5;i++)
+    {
+        for(int j=0;j<3;j++)
+       {  if(i==1 || i==3) printf("- ");
+          //if(i==1 || i==4 || i==7)printf(" |");
+          if(i==0 && j!=2) printf("%d|",j+1);if (i==0&&j==2)printf("%d",j+1);
+          if(i==2 && j!=2) printf("%d|",j+4);if(i==2 && j==2)printf("%d",j+4);
+          if(i==4 && j!=2) printf("%d|",j+7);if(i==4 && j==2)printf("%d",j+7);
+       }
+       printf("\n");
+    }
+
+
+    //user input
+   for(int j=1,i=1;j<3,i<10;j++,i++)
+   {  if(j==3)j=1;
+    printf("\n\n");
+       //  printf("Player %d  : ",j);
+        if(j==1) {
+                printf("JAYMIN : ");
+                scanf("%d",&temp1);
+               draw_board1(temp1,board);
+               if(i>4)
+                {
+                    win_check(board);
+                    if(win_check(board) == 1)
+                    {
+                          printf ("JAYMIN wins UMANG loses ");
+                        break;
+                    }
+
+               }
+
+
+        }
+        else  if(j==2){
+                printf("UMANG : ");
+                scanf("%d",&temp2);
+              draw_board2(temp2,board);
+              if(i>4)
+                {
+                    win_check(board);
+                    if(win_check(board)== 0)
+                    {
+                        printf ("UMANG wins JAYMIN loses ");
+
+                    break;
+
+                    }
+
+               }
+
+            }
+            continue;
+   }
+  if(win_check(board)==2)
+                    {
+                        printf("Match is draw B/W JAYMIN and UMANG \n");
+                    }
+
+
+
+}
